@@ -1,4 +1,4 @@
-const SongRow = ({ song }) => {
+const SongRow = ({ song, handleDelete }) => {
     let releaseDate = song.releaseDate.split("-");
     let day = releaseDate.pop();
     let dayTime = day.split("T")
@@ -12,6 +12,9 @@ const SongRow = ({ song }) => {
             <td>{song.genre}</td>
             <td>{releaseDate}</td>
             <td>{song.likes}</td>
+            <div className="d-flex justify-content-center">
+            <td><button onClick={() => handleDelete(song.id)} className="btn btn-danger">Delete</button></td>
+            </div>
         </tr>
      );
 }

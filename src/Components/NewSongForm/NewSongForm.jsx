@@ -29,6 +29,7 @@ const NewSongForm = ({ onNewSong }) => {
         }
     }
 
+
     return ( 
         <form onSubmit={handleSubmit} className="new-form">
             <InputField label="Title" value={title} onChange={setTitle}/>
