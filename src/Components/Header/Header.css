@@ -1,7 +1,8 @@
 .header{
     background-color: #ffd2d3;
-    width: 99vw;
+    width: 97vw;
     text-align: center;
     padding: 0.7%;
     margin-top: .5%;
+    border-radius: 25px;
 }

@@ -10,6 +10,8 @@ const NewSongForm = ({ onNewSong }) => {
     const [releaseDate, setReleaseDate] = useState("");
     const [genre, setGenre] = useState("");
 
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -23,7 +25,7 @@ const NewSongForm = ({ onNewSong }) => {
 
         try {
             const responce = await axios.post("https://localhost:7042/api/Songs", newSong)
-            if (responce.status === 201) onNewSong(newSong);
+            if (responce.status === 201) onNewSong();
         } catch (error) {
             console.log("Error submitting new song:", error)
         }

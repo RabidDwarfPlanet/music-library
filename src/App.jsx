@@ -44,14 +44,11 @@ function App() {
     try {
       const responce = await axios.get("https://localhost:7042/api/Songs")
       setMusicLibrary(responce.data)
+      setMusicList(responce.data);
     } catch (error) {
       console.log("Error at fetch movies: ", error)
     } 
   }
-
-  useEffect(() => {
-    setMusicList(musicLibrary);
-  }, [musicLibrary])
 
   useEffect(() => {
     fetchSongs();
@@ -62,7 +59,7 @@ function App() {
       <Header/>
       <SearchBar setValue={handleSearch}/>
       <MusicTable musicLibrary={musicList} handleDelete={handleDeletePrompt} handleEdit={handleEdit}/>
-      <NewSongForm onNewSong={setMusicLibrary}/>
+      <NewSongForm onNewSong={fetchSongs}/>
       <Modal open={openModal} editModal={setOpenModal} song={currentEdit}/>
     </div>
   );
