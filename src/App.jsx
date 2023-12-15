@@ -5,12 +5,18 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import SearchBar from './Components/SearchBar/SearchBar';
 import NewSongForm from './Components/NewSongForm/NewSongForm';
+import Modal from './Components/EditModal/EditModal';
 
 function App() {
   const [musicLibrary, setMusicLibrary] = useState([])
   const [musicList, setMusicList] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [currentEdit, setCurrentEdit] = useState([]);
   
-  
+  function handleEdit (openModal, currentEdit) {
+    setOpenModal(openModal)
+    setCurrentEdit(currentEdit)
+  }
 
   const handleDelete = async (songId) => {
     try {
@@ -38,11 +44,14 @@ function App() {
     try {
       const responce = await axios.get("https://localhost:7042/api/Songs")
       setMusicLibrary(responce.data)
-      setMusicList(responce.data)
     } catch (error) {
       console.log("Error at fetch movies: ", error)
     } 
   }
+
+  useEffect(() => {
+    setMusicList(musicLibrary);
+  }, [musicLibrary])
 
   useEffect(() => {
     fetchSongs();
@@ -52,8 +61,9 @@ function App() {
     <div className="App d-flex flex-column align-items-center">
       <Header/>
       <SearchBar setValue={handleSearch}/>
-      <MusicTable musicLibrary={musicList} handleDelete={handleDeletePrompt}/>
+      <MusicTable musicLibrary={musicList} handleDelete={handleDeletePrompt} handleEdit={handleEdit}/>
       <NewSongForm onNewSong={setMusicLibrary}/>
+      <Modal open={openModal} editModal={setOpenModal} song={currentEdit}/>
     </div>
   );
 }

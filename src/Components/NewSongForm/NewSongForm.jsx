@@ -38,7 +38,7 @@ const NewSongForm = ({ onNewSong }) => {
             <InputField label="Release Date" value={releaseDate} onChange={setReleaseDate} type="date"/>
             <InputField label="Genre" value={genre} onChange={setGenre} />
             <div className="d-flex justify-content-end">
-            <button className="btn btn-primary button justify-" type="submit">Add Song</button>
+            <button className="btn btn-primary button" type="submit">Add Song</button>
             </div>
         </form>
     );

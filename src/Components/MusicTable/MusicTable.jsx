@@ -1,8 +1,8 @@
 import SongRow from '../SongRow/SongRow';
 import './MusicTable.css'
 
-const MusicTable = ({ musicLibrary, handleDelete }) => {
-    const musicArray = musicLibrary.map((song, i) => <SongRow key={i} song={song} handleDelete={handleDelete}/>)
+const MusicTable = ({ musicLibrary, handleDelete, handleEdit }) => {
+    const musicArray = musicLibrary.map((song, i) => <SongRow key={i} song={song} handleDelete={handleDelete} handleEdit={handleEdit}/>)
     return ( 
         <div>
             <table className="music-table table table-bordered">
@@ -15,6 +15,7 @@ const MusicTable = ({ musicLibrary, handleDelete }) => {
                         <th>Release Date</th>
                         <th>Likes</th>
                         <th>Delete</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>{musicArray}</tbody>
