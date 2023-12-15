@@ -8,6 +8,9 @@ import NewSongForm from './Components/NewSongForm/NewSongForm';
 
 function App() {
   const [musicLibrary, setMusicLibrary] = useState([])
+  const [musicList, setMusicList] = useState([]);
+  
+  
 
   const handleDelete = async (songId) => {
     try {
@@ -20,6 +23,11 @@ function App() {
     }
   }
 
+  const handleSearch = (input) => {
+    let searchFilter = musicLibrary.filter((song) =>  song.title.includes(input) || song.artist.includes(input) || song.artist.includes(input) || song.genre.includes(input))
+    setMusicList(searchFilter)
+  }
+
   const handleDeletePrompt = (songId) => {
     if(window.confirm("You are about to delete this song, are you sure you would like to continue")){
       handleDelete(songId)
@@ -30,6 +38,7 @@ function App() {
     try {
       const responce = await axios.get("https://localhost:7042/api/Songs")
       setMusicLibrary(responce.data)
+      setMusicList(responce.data)
     } catch (error) {
       console.log("Error at fetch movies: ", error)
     } 
@@ -42,9 +51,9 @@ function App() {
   return (
     <div className="App d-flex flex-column align-items-center">
       <Header/>
-      <SearchBar/>
-      <MusicTable musicLibrary={musicLibrary} handleDelete={handleDeletePrompt}/>
-      <NewSongForm onNewSong={fetchSongs}/>
+      <SearchBar setValue={handleSearch}/>
+      <MusicTable musicLibrary={musicList} handleDelete={handleDeletePrompt}/>
+      <NewSongForm onNewSong={setMusicLibrary}/>
     </div>
   );
 }
