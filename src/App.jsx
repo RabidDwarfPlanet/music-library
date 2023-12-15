@@ -24,7 +24,7 @@ function App() {
   }
 
   const handleSearch = (input) => {
-    let searchFilter = musicLibrary.filter((song) =>  song.title.includes(input) || song.artist.includes(input) || song.artist.includes(input) || song.genre.includes(input))
+    let searchFilter = musicLibrary.filter((song) =>  song.title.toLowerCase().includes(input.toLowerCase()) || song.artist.toLowerCase().includes(input.toLowerCase()) || song.artist.toLowerCase().includes(input.toLowerCase()) || song.genre.toLowerCase().includes(input.toLowerCase()))
     setMusicList(searchFilter)
   }
 
