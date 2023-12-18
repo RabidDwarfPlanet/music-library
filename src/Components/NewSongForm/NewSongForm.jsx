@@ -9,6 +9,7 @@ const NewSongForm = ({ onNewSong }) => {
     const [album, setAlbum] = useState("");
     const [releaseDate, setReleaseDate] = useState("");
     const [genre, setGenre] = useState("");
+    const [likes, setLikes] = useState("");
 
     
 
@@ -20,15 +21,28 @@ const NewSongForm = ({ onNewSong }) => {
             artist,
             album,
             releaseDate,
-            genre
+            genre, 
+            likes
         }
 
         try {
             const responce = await axios.post("https://localhost:7042/api/Songs", newSong)
-            if (responce.status === 201) onNewSong();
+            if (responce.status === 201) {
+                onNewSong();
+                clearForm();
+            }
         } catch (error) {
             console.log("Error submitting new song:", error)
         }
+    }
+
+    function clearForm () {
+        setTitle('');
+        setArtist('');
+        setAlbum('');
+        setReleaseDate('');
+        setGenre('');
+        setLikes('');
     }
 
 
@@ -39,8 +53,10 @@ const NewSongForm = ({ onNewSong }) => {
             <InputField label="Album" value={album} onChange={setAlbum}/>
             <InputField label="Release Date" value={releaseDate} onChange={setReleaseDate} type="date"/>
             <InputField label="Genre" value={genre} onChange={setGenre} />
-            <div className="d-flex justify-content-end">
-            <button className="btn btn-primary button" type="submit">Add Song</button>
+            <InputField label="Likes" value={likes} onChange={setLikes} type={"number"} />
+            <div className="d-flex justify-content-between">
+                <button className="btn btn-secondary" onClick={clearForm}>Clear</button>
+                <button className="btn btn-primary" type="submit">Add Song</button>
             </div>
         </form>
     );
